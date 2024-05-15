@@ -1,3 +1,4 @@
+"use strict";
 function greet(firstName) {
     console.log("Hello " + firstName);
 }
@@ -14,8 +15,8 @@ function sum(a, b) {
     console.log("a is", a, "b is ", b);
     return (a + b);
 }
-var a = 1;
-var value = sum(a, 2);
+const a = 1;
+const value = sum(a, 2);
 console.log("value=>", value);
 // =================================
 // boolean
@@ -27,6 +28,6 @@ function checkingBool(age) {
         return false;
     }
 }
-var age = 40;
-var vote = checkingBool(age);
+const age = 40;
+const vote = checkingBool(age);
 console.log(vote ? "voter" : "not voter");

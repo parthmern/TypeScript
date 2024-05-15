@@ -1,3 +1,4 @@
+"use strict";
 // Learn to work with functions as parameters in TypeScript.
 // : ()=> void 
 // above is dataType of function that is going to receive as argument
