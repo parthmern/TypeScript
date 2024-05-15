@@ -42,7 +42,7 @@ interface UserProp {
     firstName : string ,
     lastName : string ,
     age : number ,
-    email ?: string ,            // ?: === email is string which is optional that user may provide or not, depend on user
+    email ?: string ,            // ?:  ===> email is string which is optional that user may provide or not, depend on user
 };
 
 function checkLegal(user : UserProp){
