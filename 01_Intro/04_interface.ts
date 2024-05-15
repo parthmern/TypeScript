@@ -35,15 +35,17 @@ console.log(ans);
 greet(user);
 
 
+//===================================================================================
 // here for above thing i have to define data type everytime for that object
 // so create interface for this
-interface User {
+interface UserProp {
     firstName : string ,
     lastName : string ,
     age : number ,
+    email ?: string ,            // ?: === email is string which is optional that user may provide or not, depend on user
 };
 
-function checkLegal(user : User){
+function checkLegal(user : UserProp){
     if(user.age > 21) {
         return true ;
     }
@@ -52,7 +54,7 @@ function checkLegal(user : User){
     }
 }
 
-function greeting(user: User){
+function greeting(user: UserProp){
     console.log("greeeeet", user.lastName);
 }
 
