@@ -23,3 +23,19 @@ function sum(a:number , b:number) : number{
 const a:number = 1 ;
 const value = sum(a , 2);
 console.log("value=>", value);
+
+// =================================
+// boolean
+
+function checkingBool (age: number) : boolean {
+    if(age>18){
+        return true ;
+    }
+    else{
+        return false ;
+    }
+}
+
+const age : number = 40 ;
+const vote : boolean = checkingBool(age);
+console.log(vote ? "voter" : "not voter");
