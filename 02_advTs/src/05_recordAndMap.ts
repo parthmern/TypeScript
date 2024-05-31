@@ -26,6 +26,7 @@ console.log(users.abc123); // Output: { id: 'abc123', name: 'John Doe' }
 // ===========================================================================
 // ===========================================================================
 // MAP - maps gives you an even fancier way to deal with objects. Very similar to Maps in C++
+// JS concept ( not ts )
 
 interface UserI {
   id: string;
