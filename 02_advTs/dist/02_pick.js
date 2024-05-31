@@ -1,4 +1,4 @@
 "use strict";
-function updateUser(updatedUserInfo) {
+function updateUserinfo(updatedUserInfo) {
     // hit the db to update user
 }
