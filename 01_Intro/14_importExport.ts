@@ -8,7 +8,7 @@ export function subtract(x: number, y: number): number {
 }
 
 // way of import
-import { add } from "./math"
+// import { add } from "./math"
 add(1, 2)
 
 // ================================================================
@@ -23,7 +23,7 @@ export default class Calculator {
 }
 
 // way of import for default export
-import Calculator from './Calculator';
+// import Calculator from './Calculator';
 const calc = new Calculator();
 console.log(calc.add(10, 5));
 

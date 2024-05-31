@@ -19,6 +19,6 @@ interface UserInst{
 // how to pick some of them from one instance 
 type updateProps = Pick<UserInst, 'name' | 'email'| 'password' >
 
-function updateUser(updatedUserInfo : updateProps){
+function updateUserinfo(updatedUserInfo : updateProps){
     // hit the db to update user
 }
