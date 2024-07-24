@@ -102,3 +102,34 @@ const boy : newObj = {
         console.log(n,m);
     }
 } 
+
+// ==================================================
+
+type funcType = (n:number, m:number, l?:number) => string ;
+
+const functi : funcType = (n , m, l ) => {
+    
+    // l is not passed by user means undefined type
+    if(typeof l === "undefined"){
+        return "m and n" ;
+    }
+
+    return  "m and n and l";
+}
+
+functi(4,5);
+
+// ==================================================
+
+// rest operator
+
+const funcRest = ( a : number, ...rest : number[] ) : string => {
+    
+    return "ans" ;
+}
+
+funcRest(1,2,3,4,5,5,6);
+
+// ==============================================
+
+
