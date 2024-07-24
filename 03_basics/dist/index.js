@@ -62,3 +62,22 @@ const funcRest = (a, ...rest) => {
 };
 funcRest(1, 2, 3, 4, 5, 5, 6);
 // ==============================================
+const getData = (product) => {
+    console.log("receving obj =>", product);
+};
+getData({
+    name: "parth",
+    stock: 14,
+    price: 15,
+});
+const getProduct = (prod) => {
+    console.log(prod);
+    return prod.name;
+};
+getProduct({
+    name: "pepsi",
+    price: 12,
+});
+const getProduct1 = (prod) => {
+    return (prod.name);
+};

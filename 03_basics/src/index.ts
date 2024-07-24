@@ -132,4 +132,40 @@ funcRest(1,2,3,4,5,5,6);
 
 // ==============================================
 
+const getData = (product : {
+    name : string ,
+    stock : number ,
+    price : number,
+}) => {
+    console.log("receving obj =>", product );
+}
 
+getData(
+    {
+        name : "parth",
+        stock : 14 ,
+        price : 15,
+    }
+)
+
+interface prodType {
+    name : string ,
+    price : number
+}
+
+const getProduct = ( prod : prodType ) : string =>{
+    console.log(prod);
+    return prod.name ;
+}
+
+getProduct({
+    name : "pepsi",
+    price : 12 ,
+})
+
+
+// other way using type
+type getProductType = (prod : prodType) => string ;
+const getProduct1 : getProductType = (prod) =>{
+    return (prod.name);
+}
