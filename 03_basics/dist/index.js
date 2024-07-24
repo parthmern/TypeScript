@@ -19,4 +19,13 @@ const func = (n, m) => {
 };
 let un = "parthmern";
 un = 5;
-// un = false; // cannot do in ts
+const funct = (n, m) => {
+    console.log(n, m);
+    return "ans";
+};
+// =================================================
+const arr = [1, 2, 3, 4];
+const arr2 = ["parth", "mern"];
+const arr3 = ["parth", "mern", 23, 55];
+const arr4 = [1, 2, 3, 4]; // for fixed size array (tuple)
+// =================================================

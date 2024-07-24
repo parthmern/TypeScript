@@ -37,4 +37,23 @@ un = 5 ;
 
 // un = false; // cannot do in ts
 
+type paramsType = (n: number , m: boolean) => string ;
+
+const funct : paramsType = (n,m) =>{
+    console.log(n,m);
+    return "ans";
+}
+
+// =================================================
+
+const arr : number[] = [1,2,3,4] ;
+
+const arr2 : Array<string> = ["parth", "mern"] ;
+
+const arr3 : Array<string | number> = ["parth", "mern", 23 , 55] ;
+
+const arr4 : [number, number, number, number] = [1,2,3,4] ;     // for fixed size array (tuple)
+
+// =================================================
+
 
