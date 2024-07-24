@@ -56,4 +56,49 @@ const arr4 : [number, number, number, number] = [1,2,3,4] ;     // for fixed siz
 
 // =================================================
 
+const obj : {
+    name : string ;
+    age : number ;
+} = {
+    name : "parth", 
+    age : 19
+} 
 
+type objType = {
+    name : string ;
+    age : number ;
+    gender ?: string ;
+}
+
+const person : objType= {
+    name : "pk", 
+    age : 12 ,
+    // gender is optional here
+}
+
+
+// ==================================================
+
+interface objInter  {
+    name : string ;
+    age : number ;
+    gender ?: string ;
+}
+
+// interface can be extended as inherits
+// types cannot do this
+
+interface newObj extends objInter {
+    isGood : boolean ;
+    func ? : (n:number , m: number) => void
+}
+
+const boy : newObj = {
+    name : "pth", 
+    age : 15 ,
+    // gnder is optional
+    isGood : false ,
+    func : (n, m) =>{
+        console.log(n,m);
+    }
+} 

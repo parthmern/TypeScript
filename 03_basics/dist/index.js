@@ -29,3 +29,21 @@ const arr2 = ["parth", "mern"];
 const arr3 = ["parth", "mern", 23, 55];
 const arr4 = [1, 2, 3, 4]; // for fixed size array (tuple)
 // =================================================
+const obj = {
+    name: "parth",
+    age: 19
+};
+const person = {
+    name: "pk",
+    age: 12,
+    // gender is optional here
+};
+const boy = {
+    name: "pth",
+    age: 15,
+    // gnder is optional
+    isGood: false,
+    func: (n, m) => {
+        console.log(n, m);
+    }
+};
