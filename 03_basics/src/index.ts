@@ -1,4 +1,3 @@
-
 console.log("ts started");
 
 const ans = 10;
@@ -104,6 +103,7 @@ const boy : newObj = {
 } 
 
 // ==================================================
+// FUNCTION IN TS ARGS
 
 type funcType = (n:number, m:number, l?:number) => string ;
 
@@ -131,6 +131,7 @@ const funcRest = ( a : number, ...rest : number[] ) : string => {
 funcRest(1,2,3,4,5,5,6);
 
 // ==============================================
+// OBJECT IN TS
 
 const getData = (product : {
     name : string ,
@@ -169,3 +170,300 @@ type getProductType = (prod : prodType) => string ;
 const getProduct1 : getProductType = (prod) =>{
     return (prod.name);
 }
+
+type themeMode = "light" | "dark" ;
+
+// const mode : themeMode = "asd"; // error 
+
+
+// ==============================================
+// NEVER TYPE
+
+const errorHandler = () : never =>{
+    throw new Error();      // return NEVER
+    // return new Error();     // return error
+}
+
+// ==============================================
+// CLASSES IN TS
+
+class Player {
+
+    
+    height : number ; 
+    private weight : number ;
+    protected power : number; 
+
+    constructor(height : number, weight: number, power : number){
+        console.log("player created");
+        this.height = height ;
+        this.weight = weight ;
+        this.power = power ;
+    }
+
+    getWeight = () => {
+        console.log("my weight which is private member that can be accessible by member function/ method =>", this.weight);
+        return (this.weight); 
+    }
+    
+}
+
+const abhi = new Player(100, 80, 1);
+
+console.log(abhi.height);     // by default - member is public
+// console.log(abhi.weight);     // making PRIVATE above so u cannot access it
+
+console.log(abhi.getWeight());
+
+
+class Cricketer extends Player{    
+
+    // height (public): Accessible from anywhere.
+    // weight (private): Accessible only within the Player class.
+    // power (protected): Accessible within the Player class and its subclasses.
+    // special (public): Accessible from anywhere.
+
+    special : boolean ;
+
+    constructor(height : number, weight: number, power : number, special : boolean){
+        
+        // have to call constructor of Parent class that we can do with SUPER()
+        super(height, weight, power);
+
+        this.special = special ;
+    }
+
+    allAccessVars = () =>{
+        console.log(
+            "inside we can access",
+            this.height ,
+            this.power ,
+            this.special ,
+        )
+    }
+
+    // GETTER FUNCTION ( syntex imp )
+    get getMyHeight() : number {
+        return this.height ;
+    }
+
+    // SETTER function
+    // here return type notation is not going to be "void" // nothing to do in setter func
+    set setMyHeight( val : number ) {
+        console.log(this.height);
+        this.height = val ;
+        console.log(this.height);
+    }
+}
+
+const viratKohli = new Cricketer(100, 90, 1, false);
+
+console.log("while calling getter func we donot need to use ()", viratKohli.getMyHeight);
+
+console.log("while calling setter func we cannot do likr this 'viratKohli.setMyHeight(80)' ");
+viratKohli.setMyHeight = 80 ;
+
+// assume getter and setter functions are like Variables
+
+// ===================================
+// IMPLEMENTS INTERFACES 
+
+interface ProductType {
+    name: string;
+    price: number;
+    id: string;
+}
+
+class Product implements ProductType {
+
+    // name: string;
+    // price: number;
+    // id: string;
+
+    protected category : string  ;
+
+    constructor(public name: string, public price: number, public id: string, category : string) {
+        this.name = name;
+        this.price = price;
+        this.id = id;
+
+        this.category = category ;
+    }
+}
+
+// ===================================
+// DOM MANUPLATION
+//
+// TYPE ACCERTION - baap ko mat sikha
+
+const a  = document.getElementById("btn"); 
+// here TS donot know that btn exist or not (it may be or may not be)
+// a.onclick    // thats why this gives error
+
+const btn = document.getElementById("btn") as HTMLElement; 
+// now exist karta hai as developer i know and that u tell to TS
+
+btn.onclick ;
+
+// same other way
+const btnn = <HTMLElement>document.getElementById("btn");
+btnn.onclick ;
+
+const btnnn = document.getElementById("btn") ! ;    // not null that tells to TS
+btnnn.onclick ;
+
+// ---------------------------------------
+// for other elements like img
+const img = document.getElementById("myimg") ! ;
+img.onclick ; // u can do it
+// img.src = "new url"; // u cannot do it giving error
+
+const image = document.getElementById("myimg") as HTMLImageElement ;
+image.src = "new url" ;
+
+// other way by using query selector and !
+const ig = document.querySelector("img") ! ;
+ig.src = "new url" ;
+
+const form = document.getElementById("myform") as HTMLFormElement;
+
+const myinput = document.querySelector("form > input") as HTMLInputElement ;
+
+form.onsubmit = (e) =>{
+    e.preventDefault();
+    const value = myinput.value; 
+    console.log(myinput.value);
+
+
+    const h2 = document.createElement("h2");
+    h2.textContent = value ;
+
+    const body = document.querySelector("body") !;
+    body.append(h2); 
+
+}
+
+// ------------------------------
+
+interface Person {
+    // name : string ,
+    // email : string ,
+
+    // dynamic key assign
+    [key : string] : string ;
+}
+
+const myObj : Person = {
+    name : "Abhi",
+    email : "Abhi@gmail.com"
+};
+
+const getName = () : string =>{
+    // return myObj.name ;
+    return myObj["name"] ;
+}
+
+const getEmail = () : string =>{
+    // return myObj.email ;
+    return myObj["email"] ;
+}
+
+const getDatas = (key : "name" | "email") : string => {
+    return myObj[key];
+}
+
+const getDatass = (key : keyof Person) : string => {
+    return myObj[key];
+}
+
+console.log(myObj.name);
+
+let key = "name" ;
+myObj[key as keyof Person] ;
+
+myObj[key as keyof typeof myObj] ;  // typeof myObj = Person
+
+// ============================================
+// ============================================
+// ============================================
+// TYPE OF UTILITY = ease of access
+
+// partial<Type>
+// making optional property
+// utility type to create a type that makes all properties of an existing type optional
+
+type User = {
+    name : string ,
+    email : string ,
+}
+
+type User2 = Partial<User> ;
+
+const user1: User2 = { name: "John" }; // valid
+const user2: User2 = { email: "john@example.com" }; // valid
+const user3: User2 = { name: "John", email: "john@example.com" }; // valid
+const user4: User2 = {}; // valid
+
+// REQUIRED<TYPE>
+// opposite of partial
+// making optional to required 
+// required is going to be required
+
+
+type UserReq = {
+    name?: string;
+    email: string;
+};
+
+type UserReqAllRequired = Required<UserReq>;
+
+const UserReq1: UserReqAllRequired = { name: "John", email: "john@example.com" }; // valid
+//const UserReq2: UserReqAllRequired = { email: "john@example.com" }; // Error: Property 'name' is missing
+//const UserReq3: UserReqAllRequired = {}; // Error: Property 'name' and 'email' are missing
+
+// READONLY<TYPE>
+// makes every property read only ( no access to change value or write )
+
+type UserR = {
+    readonly name : string ,
+}
+
+const newUserR : UserR = {
+    name : "parth" ,
+}
+
+ // newUserR.name = "mern" ;    // ERROR cannot do write again change value -- bcz of readOnly
+
+ type UserRead = {
+    name: string;
+    email: string;
+};
+
+type ReadonlyUser = Readonly<UserRead>;
+
+const readonlyUser: ReadonlyUser = {
+    name: "parth",
+    email: "parth@example.com",
+};
+
+// readonlyUser.name = "mern"; // Error: Cannot assign to 'name' because it is a read-only property.
+// readonlyUser.email = "new@example.com"; // Error: Cannot assign to 'email' because it is a read-only property.
+
+// RECORD<TYPE>
+// 
+
+type Users = "parth" | "john" | "ritik";
+
+type UserDetails = {
+    name: string;
+    email: string;
+};
+
+type UserRecordMap = Record<Users, UserDetails>;
+
+const users: UserRecordMap = {
+    parth: { name: "Parth Patel", email: "parth@example.com" },
+    john: { name: "John Doe", email: "john@example.com" },
+    ritik: { name: "Ritik Sharma", email: "ritik@example.com" }
+};
+
