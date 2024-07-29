@@ -218,3 +218,67 @@ const users = {
     john: { name: "John Doe", email: "john@example.com" },
     ritik: { name: "Ritik Sharma", email: "ritik@example.com" }
 };
+const shippingDetails = {
+    city: "Toronto",
+    state: "Ontario",
+    status: "Shipped"
+};
+const orderSummary = {
+    city: "Toronto",
+    state: "Ontario",
+    status: "Shipped"
+};
+let currentStatus;
+currentStatus = "Pending"; // valid
+currentStatus = "Shipped"; // valid
+currentStatus = "Delivered"; // valid
+let currentShipmentStatus;
+currentShipmentStatus = "Shipped"; // valid
+currentShipmentStatus = "Delivered"; // valid
+// MyFunctionParams is now a tuple type: [string, number, boolean]
+let args;
+args = ["hello", 42, true]; // valid
+// args = ["hello", 42];    // ERROR: Type '[string, number]' is not assignable to type '[string, number, boolean]'.
+// args = [42, "hello", true]; // ERROR: Type '[number, string, boolean]' is not assignable to type '[string, number, boolean]'.
+// Example usage in a function
+function logParams(...params) {
+    console.log(params);
+}
+function getDataFunc(a, b) {
+}
+// [a: number, b: string]
+// --------------------
+// ConstructorParameter<Type>
+class MyClass {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+let constructorArgs;
+//  [name: string, age: number]
+constructorArgs = ["John", 30]; // valid
+let result;
+result = true; // valid
+// result = "string"; // ERROR: Type '"true"' is not assignable to type 'boolean'
+// type returnTypeOfFunc = Parameters<typeof getDataFunctionName>;
+// -----------------------
+// InstanceType<Type>
+// Define a class with a constructor
+class MyClasss {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    greet() {
+        return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+    }
+}
+// MyClassInstance is now the type MyClass
+let myInstance;
+myInstance = new MyClasss("John", 30); // valid
+console.log(myInstance.greet()); // Output: Hello, my name is John and I am 30 years old.
+// myInstance = { name: "Jane", age: 25 }; // ERROR: Type '{ name: string; age: number; }' is not assignable to type 'MyClass'.
+// myInstance = new Date();                // ERROR: Type 'Date' is not assignable to type 'MyClass'.
+// Prototype Chain: An instance of MyClass has a prototype chain that includes methods like greet. An object literal { name: "Jane", age: 25 } does not have this prototype chain.
+// Methods and Behavior: MyClass instances have methods defined in the class (e.g., greet). An object literal does not automatically include these methods, even if it has the same properties.

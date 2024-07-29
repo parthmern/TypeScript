@@ -388,6 +388,7 @@ myObj[key as keyof typeof myObj] ;  // typeof myObj = Person
 // ============================================
 // TYPE OF UTILITY = ease of access
 
+// ----------------
 // partial<Type>
 // making optional property
 // utility type to create a type that makes all properties of an existing type optional
@@ -404,6 +405,7 @@ const user2: User2 = { email: "john@example.com" }; // valid
 const user3: User2 = { name: "John", email: "john@example.com" }; // valid
 const user4: User2 = {}; // valid
 
+// ----------------
 // REQUIRED<TYPE>
 // opposite of partial
 // making optional to required 
@@ -421,6 +423,7 @@ const UserReq1: UserReqAllRequired = { name: "John", email: "john@example.com" }
 //const UserReq2: UserReqAllRequired = { email: "john@example.com" }; // Error: Property 'name' is missing
 //const UserReq3: UserReqAllRequired = {}; // Error: Property 'name' and 'email' are missing
 
+// ----------------
 // READONLY<TYPE>
 // makes every property read only ( no access to change value or write )
 
@@ -449,6 +452,7 @@ const readonlyUser: ReadonlyUser = {
 // readonlyUser.name = "mern"; // Error: Cannot assign to 'name' because it is a read-only property.
 // readonlyUser.email = "new@example.com"; // Error: Cannot assign to 'email' because it is a read-only property.
 
+// ----------------
 // RECORD<TYPE>
 // 
 
@@ -467,3 +471,163 @@ const users: UserRecordMap = {
     ritik: { name: "Ritik Sharma", email: "ritik@example.com" }
 };
 
+// ----------------
+// PICK<TYPE> 
+// picking some attributes
+
+type OrderInfo = {
+    readonly id: string;
+    user: string;
+    city: string;
+    state: string;
+    status: string;
+};
+
+// all picking things must be there
+type ShippingInfo = Pick<OrderInfo, "city" | "state" | "status">;
+
+const shippingDetails: ShippingInfo = {
+    city: "Toronto",
+    state: "Ontario",
+    status: "Shipped"
+};
+
+// const shippingDetails: ShippingInfo = {
+//     city: "gujata",
+//     state: "navs",
+// };                               // ERROR bcz only 2 attributes
+
+// ----------------
+// OMIT<TYPE> 
+// oppostie of pick
+
+// Using Omit to exclude specific properties
+type OrderSummary = Omit<OrderInfo, "id" | "user">;
+
+const orderSummary: OrderSummary = {
+    city: "Toronto",
+    state: "Ontario",
+    status: "Shipped"
+};
+
+// ----------------
+// EXCLUDE<TYPE, excludedUNION>
+// working with union for removing extra 
+
+type Status = "Pending" | "Shipped" | "Delivered" | "Cancelled";
+
+// Using Exclude to create a type without the "Cancelled" status
+type ActiveStatus = Exclude<Status, "Cancelled">;
+
+let currentStatus: ActiveStatus;
+
+currentStatus = "Pending";     // valid
+currentStatus = "Shipped";     // valid
+currentStatus = "Delivered";   // valid
+// currentStatus = "Cancelled"; // ERROR: Type '"Cancelled"' is not assignable to type 'ActiveStatus'.
+
+// ----------------
+// EXTRACT<TYPE, includedUNION>
+
+type Statuss = "Pending" | "Shipped" | "Delivered" | "Cancelled";
+
+// Using Extract to create a type with only the "Shipped" and "Delivered" statuses
+type ShipmentStatus = Extract<Statuss, "Shipped" | "Delivered">;
+
+let currentShipmentStatus: ShipmentStatus;
+
+currentShipmentStatus = "Shipped";    // valid
+currentShipmentStatus = "Delivered";  // valid
+// currentShipmentStatus = "Pending"; // ERROR: Type '"Pending"' is not assignable to type 'ShipmentStatus'.
+// currentShipmentStatus = "Cancelled"; // ERROR: Type '"Cancelled"' is not assignable to type 'ShipmentStatus'.
+
+// -------------
+// NonNullable<Type>
+// exclude null and undefined
+
+type myUnion = string | number | boolean | null | undefined ;
+type Random = NonNullable<myUnion>; 
+
+type Random2 = Exclude<myUnion , undefined | null>; // same
+
+// ---------------
+// Parameters<Type>
+
+type MyFunction = (a: string, b: number, c: boolean) => void;
+
+type MyFunctionParams = Parameters<MyFunction>;
+
+// MyFunctionParams is now a tuple type: [string, number, boolean]
+let args: MyFunctionParams;
+
+args = ["hello", 42, true]; // valid
+// args = ["hello", 42];    // ERROR: Type '[string, number]' is not assignable to type '[string, number, boolean]'.
+// args = [42, "hello", true]; // ERROR: Type '[number, string, boolean]' is not assignable to type '[string, number, boolean]'.
+
+// Example usage in a function
+function logParams(...params: MyFunctionParams) {
+    console.log(params);
+}
+
+function getDataFunc(a: number, b: string){
+
+}
+
+type paramsOfgetDataFunc = Parameters<typeof getDataFunc>;
+// [a: number, b: string]
+
+// --------------------
+// ConstructorParameter<Type>
+
+class MyClass {
+    constructor(public name: string, public age: number) {}
+}
+type MyClassConstructorParams = ConstructorParameters<typeof MyClass>;
+
+let constructorArgs: MyClassConstructorParams;
+//  [name: string, age: number]
+
+constructorArgs = ["John", 30]; // valid
+// constructorArgs = ["John"];   // ERROR: Type '[string]' is not assignable to type '[string, number]'
+// constructorArgs = [30, "John"]; // ERROR: Type '[number, string]' is not assignable to type '[string, number]'
+
+// -------------------
+// ReturnType<TYPE>
+
+type MyFunct = (a: string, b: number) => boolean;
+
+type MyFunctionReturnType = ReturnType<MyFunct>;
+
+let result: MyFunctionReturnType;
+
+result = true;  // valid
+// result = "string"; // ERROR: Type '"true"' is not assignable to type 'boolean'
+
+// type returnTypeOfFunc = Parameters<typeof getDataFunctionName>;
+
+// -----------------------
+// InstanceType<Type>
+
+// Define a class with a constructor
+class MyClasss {
+    constructor(public name: string, public age: number) {}
+
+    greet() {
+        return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+    }
+}
+
+// Use InstanceType to extract the instance type of MyClass
+type MyClassInstance = InstanceType<typeof MyClasss>;
+
+// MyClassInstance is now the type MyClass
+let myInstance: MyClassInstance;
+
+myInstance = new MyClasss("John", 30);  // valid
+console.log(myInstance.greet());      // Output: Hello, my name is John and I am 30 years old.
+
+// myInstance = { name: "Jane", age: 25 }; // ERROR: Type '{ name: string; age: number; }' is not assignable to type 'MyClass'.
+// myInstance = new Date();                // ERROR: Type 'Date' is not assignable to type 'MyClass'.
+
+// Prototype Chain: An instance of MyClass has a prototype chain that includes methods like greet. An object literal { name: "Jane", age: 25 } does not have this prototype chain.
+// Methods and Behavior: MyClass instances have methods defined in the class (e.g., greet). An object literal does not automatically include these methods, even if it has the same properties.
