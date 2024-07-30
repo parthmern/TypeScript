@@ -282,3 +282,25 @@ console.log(myInstance.greet()); // Output: Hello, my name is John and I am 30 y
 // myInstance = new Date();                // ERROR: Type 'Date' is not assignable to type 'MyClass'.
 // Prototype Chain: An instance of MyClass has a prototype chain that includes methods like greet. An object literal { name: "Jane", age: 25 } does not have this prototype chain.
 // Methods and Behavior: MyClass instances have methods defined in the class (e.g., greet). An object literal does not automatically include these methods, even if it has the same properties.
+// ===============================================================
+// ===============================================================
+// ===============================================================
+// ===============================================================
+// ===============================================================
+// GENERICS 
+// common - custom type
+const funcT = (n) => {
+    return n;
+};
+const answer = funcT(10);
+// we donot know which data we are going to pass as args
+const funT = (n) => {
+    // if N is number than customType is going to be number as datatype
+    // dynamic datatype
+    return n;
+};
+const res = funT(20);
+const res2 = funT("strin");
+const funGeneric = (n) => {
+    return n;
+};

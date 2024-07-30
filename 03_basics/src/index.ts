@@ -631,3 +631,111 @@ console.log(myInstance.greet());      // Output: Hello, my name is John and I am
 
 // Prototype Chain: An instance of MyClass has a prototype chain that includes methods like greet. An object literal { name: "Jane", age: 25 } does not have this prototype chain.
 // Methods and Behavior: MyClass instances have methods defined in the class (e.g., greet). An object literal does not automatically include these methods, even if it has the same properties.
+
+
+// ===============================================================
+// ===============================================================
+// ===============================================================
+// ===============================================================
+// ===============================================================
+
+// GENERICS 
+// common - custom type
+
+
+const funcT = ( n : number ) : number =>{
+    return n ;
+}
+
+const answer = funcT(10);
+
+// we donot know which data we are going to pass as args
+
+const funT = <CustomType>( n : CustomType ) : CustomType=>{
+
+    // if N is number than customType is going to be number as datatype
+    // dynamic datatype
+
+    return n ;
+}
+
+const res = funT(20);
+const res2 = funT("strin");
+
+
+const funGeneric = <T>( n : T ) : T=>{
+    // now here T type is humanType
+    return n ;
+}
+
+type humanType = {
+    name : string ,
+    age : number ,
+}
+
+const male : humanType = {
+    name : "pathu",
+    age : 14 ,
+}
+
+const bodyThatGot = funGeneric<humanType>(male);
+
+// --------------------------
+const arrs : number[] = [1,2];
+const arrs2 : Array<number> = [1,2,3,4];
+
+// --------------------------
+const functure = <T, U> (n : T, m : U) : {n:T,m:U} =>{
+    
+    return {n, m} ;
+}
+
+const ansvar = functure<number, string>(20, "lol");
+
+// ------------------------------
+const fun = <T, U extends T>(n: T, m: U): { n: T; m: U } => {
+    return { n, m };
+};
+
+type a = { name: string; age: number };
+type b = a & { job: string; male: boolean };
+
+const usr1: a = { name: "usr1", age: 1 };
+const usr2: b = { name: "usr2", age: 2, job: "jobid", male: true };
+
+const and = fun<a, b>(usr1, usr2);
+
+console.log(and);
+
+// ------------------------------------------
+// Define a generic function that takes an object and a key of that object
+const getProperty = <T, U extends keyof T>(obj: T, key: U): T[U] => {
+    return obj[key];
+};
+
+// Define an interface
+interface Userji {
+    name: string;
+    age: number;
+    job: string;
+    male: boolean;
+}
+
+// Create an object of type User
+const user: Userji = {
+    name: "John",
+    age: 30,
+    job: "Engineer",
+    male: true
+};
+
+// Use the generic function to get properties
+const names = getProperty(user, "name"); // string
+const age = getProperty(user, "age");   // number
+const job = getProperty(user, "job");   // string
+const males = getProperty(user, "male"); // boolean
+
+console.log(name); // Output: John
+console.log(age);  // Output: 30
+console.log(job);  // Output: Engineer
+console.log(male); // Output: true
