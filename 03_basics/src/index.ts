@@ -739,3 +739,4 @@ console.log(name); // Output: John
 console.log(age);  // Output: 30
 console.log(job);  // Output: Engineer
 console.log(male); // Output: true
+
